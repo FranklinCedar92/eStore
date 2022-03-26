@@ -14,6 +14,13 @@ Tag.init(
     },
     tag_name: {
       type: DataTypes.STRING
+    },
+    product_id: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'product',
+        key: 'id'
+      }
     }
   },
   {
