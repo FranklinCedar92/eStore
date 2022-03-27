@@ -8,14 +8,10 @@ router.get('/', (req, res) => {
 
   Product.findAll({
     include: [
-      {
-        model: Category,
-        attributes: ['id', 'category_name']
-      },
+        Category,
       {
         model: Tag,
-        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
-        //through: ProductTag,
+        through: ProductTag,
         //as: 'productTagAlias'
       }
     ]
@@ -35,13 +31,11 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     include: [
-      {
-        model: Category,
-        attributes: ['id', 'category_name']
-      },
+      Category,
       {
         model: Tag,
-        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+        through: ProductTag
+        //attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       }
     ]
   })
@@ -133,7 +127,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  Product.destrooy({
+  Product.destroy({
     where: {
       id: req.params.id
     }
